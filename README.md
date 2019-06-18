@@ -1,6 +1,6 @@
 ![alt text](ascend_banner.png?raw=true "ascend - Analysis of Single Cell Expression, Normalisation and Differential expression")
 ### Workflow Summary
-![alt text](workflow.png?raw=true "ascend workflow summary")
+![alt text](ascend_figure1?raw=true "ascend workflow summary")
 
 ### 1. Introduction
 `ascend` (Analysis of Single Cell Expression, Normalisation and Differential 
