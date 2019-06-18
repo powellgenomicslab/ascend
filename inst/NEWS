@@ -1,0 +1,160 @@
+version 0.9.94 (2019-06-19)
+- Moved repository to powellgenomicslab
+
+version 0.9.93 (2019-06-13)
+- Addressed BiocCheck errors
+- Introduced Rcpp and RcppArmadillo functionalities
+- Moved to powellgenomicslab repository
+
+version 0.9.9 (2019-03-01)
+- Changed how objects are loaded EMSets via new EMSets
+- Altered EMSet validation function to accomodate how slots are checked
+- Changed SingleCellExperiment to EMSet conversion functions
+
+version 0.9.8 (2019-01-22)
+- Addressed R CMD check error messages
+
+version 0.9.6 (2018-11-26)
+- PCA check wasn't working correctly in the plotMDS function.
+
+version 0.9.5 (2018-11-21)
+- Changed calcVariance function to use less memory
+- Reduced number of objects created by PCA function
+
+version 0.9.4 (2018-11-20)
+- Fixed issues with scran wrapper
+
+version 0.9.2 (2018-11-07)
+- Added parallel function to DESeq
+- Fixed bug with DESeq
+ 
+version 0.9.1 (2018-10-30)
+- Resolved reoccuring error with runDESeq wrapper failing on some datasets.
+- Resolved plotting issues associated with small datasets.
+
+version 0.9.0 (2018-10-16)
+- Updated CORE algorithm to now select high resolution plateau if it is more
+stable than all clustering results generated within transition region.
+- Fixed bug with scranNormalise and datasets generated from just expression
+data.
+- Updated normaliseBatches function to accept non-numeric batch labels
+
+version 0.8.3 (2018-09-25)
+- Fixed reclustering issue when CORE detects outliers in dataset
+
+version 0.8.2 (2018-09-21)
+- Fixed issue with installation related to faulty documentation
+
+version 0.8.1 (2018-09-19)
+- Bux fix for runCORE reclustering when outliers are found
+
+version 0.8.0 (2018-09-05)
+- Introduced variable genes functions
+- Bug fixes associated with filtering functions 
+
+version 0.7.7 (2018-08-23)
+- Fixed normaliseBatches function
+- Added plotBatchNormQC function
+
+version 0.7.6 (2018-08-17)
+- Reverted SCORE algorithm name to CORE
+- Major optimisations for large datasets
+
+version 0.7.5 (2018-08-14)
+- Optimisation for large datasets via sparse matrices
+
+version 0.7.4 (2018-08-09)
+- Updated documentation.
+- Resolved issues with updateObject function.
+- Removed build vignette reference from instructions.
+
+version 0.7.3 (2018-08-08)
+- Updated documentation. Resolved check conflicts.
+
+version 0.7.2 (2018-08-07)
+- Changed runCORE to runSCORE
+- Added updateObject for converting old EMSets for compatability with the new
+version of ascend.
+
+version 0.7.0 (2018-08-02)
+- Updated documentation of some functions.
+- Updated base vignette.
+
+version 0.6.8 (2018-07-20)
+- Changed ConvertGeneAnnotation to convertGeneID and updated for new object.
+
+version 0.6.7 (2018-07-17)
+- Resolved repeat clustering issue with runCORE
+
+version 0.6.6 (2018-07-17)
+- Resolved bug with filterByOutliers
+- Reassessed package dependencies
+
+version 0.6.5 (2018-07-13)
+- Updated documentation to reflect new functions.
+- Resolved runTSNE issue.
+
+version 0.6.0 (2018-07-11)
+- Fixing installation issues.
+
+version 0.6.0 (2018-07-11)
+- Converted EMSet to SingleCellExperiment-inherited object.
+- Restructured all functions to interact with new EMSet
+- Added LRT function.
+- Added DESeq2 wrapper.
+
+version 0.5.2 (2018-05-16)
+- Set stringAsFactors import in LoadCellRanger function to FALSE
+
+version 0.5.0 (2018-04-30)
+- Upgraded for compatibility with Bioconductor 3.7
+- Removed functions related to the use of SCESets
+
+version 0.3.5 (2018-04-05)
+- Resolved R CMD check documentation warnings
+- Changed Rmarkdown engine to multiformat
+
+version 0.3.4 (2018-03-26)
+- log2FoldChange is now reflective of Condition A rather than Condition B in 
+differential expression results
+
+version 0.3.3 (2018-03-02)
+- PlotStability now works properly for all resolutions
+- Example datasets have been moved to another repository
+- Ready for testing on other systems
+
+version 0.2.9 (2018-01-31)
+- Fixed size factor replacement in the intermediate Single Cell Experiment object used for scranNormalisation function
+
+version 0.2.8 (2018-01-30)
+- RunDiffExpression was still bugged - addressed condition subsetting
+
+version 0.2.7 (2018-01-25)
+- Fixed bug associated with RunDiffExpression - subsets were selected incorrectly
+
+version 0.2.6 (2018-01-10)
+- Fixed SubsetCondition
+- Fixed RunDiffExpression for non-cluster differential expression function
+- Updated ascend general vignette on how to use SubsetCondition correctly
+
+version 0.2.5 (2018-01-09)
+- Changed how RunDiffExpression compares datasets (subsetting of EMSets by user 
+is no longer required)
+- Updated vignette to reflect recent changes
+
+version 0.2.3 (2017-12-22)
+- Debugged SCESet-associated scran functions
+- Fixed % Variance label on PlotPCAVariance plot
+- Changed SingleCellExperiment to Suggests 
+
+version 0.2.0 (2017-12-18)
+- Upgraded references to scran/scater SCESet to SingleCellExpression objects.
+- Added min.mean argument to scranNormalise function.
+- Replaced PlotDendrogram’s kclust call with inputted clusters argument.
+- Removed branch labels on PlotDendrogram with detailed legend.
+- Replaced colour scale on PlotStabilityDendro with RColorBrewer’s paired palette.
+- Updated required packages to reflect changes. 
+
+version 0.1.2 (2017-11-15)
+- Added DESeq's estimateDispersions arguments to RunDiffExpression function
+- Updated RGC_Tutorial.Rmd vignette to reflect updated functions.

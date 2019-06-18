@@ -1,0 +1,90 @@
+Package: ascend
+Type: Package
+Title: ascend - Analysis of Single Cell Expression, Normalisation, and Differential expression
+Version: 0.9.94
+Author: c(person("Anne", "Senabouth", email = "a.senabouth@garvan.org.au", rol = "aut, cre"), person("Quan", "Nguygen", email = "quan.nguyen@imb.uq.edu.au", rol = "aut"))
+Maintainer: Anne Senabouth <a.senabouth@garvan.org.au>
+Description: Provides a series of tools for cleaning, normalisation and analysis of data produced by single cell experiments.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: 
+    utils,
+    stats,
+    fields,
+    grDevices,
+    graphics,
+    ggplot2,
+    ggbeeswarm,
+    RColorBrewer,
+    gridExtra,
+    dynamicTreeCut,
+    dendextend,
+    data.table,
+    reshape2,
+    dplyr,
+    tidyr,
+    MASS,
+    BiocGenerics,
+    umap,
+    Rtsne,
+    irlba,
+    fastcluster,
+    Rcpp,
+    RcppArmadillo
+Suggests: 
+    scater,
+    scran,
+    Seurat,
+    scone,
+    devtools,
+    knitr,
+    locfit,    
+    rmarkdown,
+    testthat,
+    KernSmooth,
+    DESeq,
+    DESeq2
+VignetteBuilder: knitr
+Depends: R (>= 3.6.0),
+    methods,
+    Matrix,
+    S4Vectors,
+    SummarizedExperiment,
+    SingleCellExperiment,
+    BiocParallel
+Collate: 
+    'RcppExports.R'
+    'ascend.R'
+    'ascend_DESeq.R'
+    'ascend_DESeq2.R'
+    'ascend_confoundingfactors.R'
+    'ascend_objects.R'
+    'ascend_getters.R'
+    'ascend_setters.R'
+    'ascend_methods.R'
+    'ascend_cellranger.R'
+    'ascend_dimreduction.R'
+    'ascend_clustering.R'
+    'ascend_diffexpression.R'
+    'ascend_filtering.R'
+    'ascend_imports.R'
+    'ascend_normalisation.R'
+    'ascend_plots.R'
+    'ascend_scran.R'
+    'ascend_subsetters.R'
+    'ascend_utilities.R'
+    'data.R'
+biocViews: Software, 
+    WorkflowStep, 
+    Preprocessing, 
+    QualityControl, 
+    Normalization,
+    BatchEffect,
+    GeneExpression,
+    SingleCell,
+    DifferentialExpression
+LinkingTo:
+    Rcpp,
+    RcppArmadillo
