@@ -1,7 +1,7 @@
-version 0.9.94 (2019-06-19)
+version 0.99.4 (2019-06-19)
 - Moved repository to powellgenomicslab
 
-version 0.9.93 (2019-06-13)
+version 0.99.3 (2019-06-13)
 - Addressed BiocCheck errors
 - Introduced Rcpp and RcppArmadillo functionalities
 - Moved to powellgenomicslab repository
