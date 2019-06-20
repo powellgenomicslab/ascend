@@ -4,7 +4,7 @@
 \name{analyzed_set}
 \alias{analyzed_set}
 \title{Retinal Ganglion Cells (100 THY-1 positive, 100 THY-1 negative)}
-\format{An object of class \code{EMSet} with 17421 rows and 102 columns.}
+\format{An object of class \code{EMSet} with 17515 rows and 82 columns.}
 \source{
 \url{https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-6108/}
 }
@@ -23,12 +23,12 @@ library(ascend)
 em_set <- loadCellRanger(
 "~/Downloads/filtered_gene_bc_matrices_mex/GRCh38p7/")
 
-# Subset 100 cells from each batch
+# Subset 51 cells from each batch
 col_info <- colInfo(em_set)
 subset_barcodes1 <- sample(col_info$cell_barcode[which(col_info$batch == 1)], 
-100, replace = FALSE)
+51, replace = FALSE)
 subset_barcodes2 <- sample(col_info$cell_barcode[which(col_info$batch == 2)], 
-100, replace = FALSE)
+51, replace = FALSE)
 barcode_list <- c(subset_barcodes1, subset_barcodes2)
 raw_set <- em_set[, barcode_list]
 # Get raw elements to use in vignettes

@@ -89,7 +89,7 @@ setMethod("runUMAP", signature = "EMSet", function(object,
 #' em_set <- ascend::analyzed_set
 #' 
 #' # Run tSNE
-#' em_set <- runTSNE(em_set, PCA = TRUE, dims = 2, seed = 1)
+#' em_set <- runTSNE(em_set, PCA = TRUE, dims = 2, seed = 1, perplexity = 10)
 #' 
 #' @include ascend_objects.R
 #' @importFrom Rtsne Rtsne

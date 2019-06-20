@@ -131,6 +131,24 @@ convertEMSetToSeurat <- function(x){
   return(object)
 }
 
+convertSeurat3ToEMSet <- function(x){
+  loadNamespace("Seurat")
+  x <- Seurat::as.SingleCellExperiment(x)
+  
+  if (is(counts(x), "dgeMatrix")){
+    counts(x) <- as(counts(x), "dgCMatrix")
+  }
+  
+  colData <- SummarizedExperiment::colData(x)
+  if (length(grep("^qc_", colnames(colData))) > 0){
+    colData <- colData[, !(colnames(colData) %in% grep("^qc_", colnames(colData), value = TRUE))]    
+  } 
+  
+  SummarizedExperiment::colData(x) <- colData
+  object <- EMSet(x)
+  return(object)  
+}
+
 convertSeuratToEMSet <- function(x){
   loadNamespace("Seurat")
   
@@ -195,7 +213,9 @@ convert <- function(x, to = c("sce", "seurat", "scone", "EMSet")){
     if (to == "EMSet"){
       object <- convertSeuratToEMSet(x)
     }
-  }else{
+  } else if(is(x, "Seurat")){
+      object <- convertSeurat3ToEMSet(x) 
+  }  else{
     stop("Supplied object is not recognised.")
   }
   return(object)

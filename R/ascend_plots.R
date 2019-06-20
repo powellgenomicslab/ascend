@@ -1097,12 +1097,17 @@ plotNormQC <- function(object, gene_list = list()){
   
   # 1. Libsize histograms
   qc_normcount <- Matrix::colSums(norm_matrix[, cell_info$cell_barcode])
-  wide_df <- data.frame(cell_barcode = cell_info$cell_barcode, libsize_count = cell_info$qc_libsize, libsize_normcount = qc_normcount)
-  wide_df$cell_barcode <- factor(wide_df$cell_barcode, levels = wide_df$cell_barcode)
+  wide_df <- data.frame(cell_barcode = cell_info$cell_barcode, 
+                        libsize_count = cell_info$qc_libsize, 
+                        libsize_normcount = qc_normcount)
+  wide_df$cell_barcode <- factor(wide_df$cell_barcode, 
+                                 levels = wide_df$cell_barcode)
   
   min_lim <- min(min(wide_df$libsize_count), min(wide_df$libsize_normcount))
   max_lim <- max(max(wide_df$libsize_count), max(wide_df$libsize_normcount))
-  breaks <- seq(min_lim, max_lim, by = 10^(min(round(abs(log10(min_lim))), round(abs(log10(max_lim))))))
+  breaks <- seq(min_lim, max_lim, 
+                by = 10^(min(round(abs(log10(min_lim))), 
+                             round(abs(log10(max_lim))))))
   
   # Build un-normalised histogram
   libsize_count_hist <- ggplot2::ggplot(wide_df, ggplot2::aes(libsize_count)) +
@@ -1141,7 +1146,8 @@ plotNormQC <- function(object, gene_list = list()){
   
   # If users haven't supplied one, use house-keeping genes instead
   if (length(gene_list) == 0){
-    gene_list <- c(grep("GAPDH", rownames(object), ignore.case = TRUE, value = TRUE), grep("MALAT1", rownames(object), ignore.case = TRUE, value = TRUE))
+    gene_list <- c(grep("GAPDH", rownames(object), ignore.case = TRUE, value = TRUE), 
+                   grep("MALAT1", rownames(object), ignore.case = TRUE, value = TRUE))
     
     # If house-keeping genes aren't present, choose genes by random
     if (length(gene_list) == 1){
@@ -1168,20 +1174,31 @@ plotNormQC <- function(object, gene_list = list()){
     
     ylim_max <- max(c(gene_count_df$counts, gene_count_df$normcounts))
     gene_count_df$cell_barcode <- factor(rownames(gene_count_df), levels = rownames(gene_count_df))
-    scatter_count <- ggplot2::ggplot(gene_count_df, ggplot2::aes(x = cell_barcode, y = counts)) + ggplot2::geom_point() + ggplot2::ylim(c(0, ylim_max*1.1))
-    scatter_normcount <- ggplot2::ggplot(gene_count_df, ggplot2::aes(x = cell_barcode, y = normcounts)) + ggplot2::geom_point() + ggplot2::ylim(c(0, ylim_max*1.1))
-    scatter_count <- scatter_count + ggplot2::ggtitle(sprintf("Pre-normalised counts for %s", gene)) + ggplot2::xlab("Cell") + ggplot2::ylab("Count") + ggplot2::theme(axis.text.x=ggplot2::element_blank(), axis.ticks.x=ggplot2::element_blank())
-    scatter_normcount <- scatter_normcount + ggplot2::ggtitle(sprintf("Normalised counts for %s", gene), subtitle = sprintf("Normalised via %s", normalisation_method)) + ggplot2::xlab("Cell") + ggplot2::ylab("Normalised count") + ggplot2::theme(axis.text.x=ggplot2::element_blank(), axis.ticks.x=ggplot2::element_blank())
+    scatter_count <- ggplot2::ggplot(gene_count_df, ggplot2::aes(x = cell_barcode, y = counts)) + 
+      ggplot2::geom_point() + ggplot2::ylim(c(0, ylim_max*1.1))
+    scatter_normcount <- ggplot2::ggplot(gene_count_df, ggplot2::aes(x = cell_barcode, y = normcounts)) + 
+      ggplot2::geom_point() + ggplot2::ylim(c(0, ylim_max*1.1))
+    scatter_count <- scatter_count + ggplot2::ggtitle(sprintf("Pre-normalised counts for %s", gene)) + 
+      ggplot2::xlab("Cell") + ggplot2::ylab("Count") + ggplot2::theme(axis.text.x=ggplot2::element_blank(), 
+                                                                      axis.ticks.x=ggplot2::element_blank())
+    scatter_normcount <- scatter_normcount + ggplot2::ggtitle(sprintf("Normalised counts for %s", gene), 
+                                                              subtitle = sprintf("Normalised via %s", normalisation_method)) + 
+      ggplot2::xlab("Cell") + ggplot2::ylab("Normalised count") + 
+      ggplot2::theme(axis.text.x=ggplot2::element_blank(), axis.ticks.x=ggplot2::element_blank())
     return(list(counts = scatter_count, normcounts = scatter_normcount))
   }
   
   # Extract gene counts
-  gene_counts <- BiocParallel::bplapply(gene_list, extractCounts, count_matrix = count_matrix, norm_matrix = norm_matrix)
+  gene_counts <- BiocParallel::bplapply(gene_list, extractCounts, 
+                                        count_matrix = count_matrix, 
+                                        norm_matrix = norm_matrix)
   names(gene_counts) <- gene_list
   
   # Generate plots
   normalisation_method <- progressLog(object)$NormalisationMethod
-  norm_genecounts <- BiocParallel::bplapply(gene_list, plotNormGeneCounts, gene_counts = gene_counts, normalisation_method = normalisation_method)
+  norm_genecounts <- BiocParallel::bplapply(gene_list, plotNormGeneCounts, 
+                                            gene_counts = gene_counts, 
+                                            normalisation_method = normalisation_method)
   names(norm_genecounts) <- gene_list
   output_list[["sampled_genes"]] <- norm_genecounts
   
@@ -1201,16 +1218,27 @@ plotNormQC <- function(object, gene_list = list()){
   ordered_counts <- cbind(gene_id = rownames(ordered_counts), ordered_counts)
   ordered_normcounts <- cbind(gene_id = rownames(ordered_normcounts), ordered_normcounts)
   
-  ordered_counts <- tidyr::gather(ordered_counts[,1:101], gene, count, -gene_id)
-  ordered_normcounts <- tidyr::gather(ordered_normcounts[,1:101], gene, count, -gene_id)
+  if (ncol(object) > 100){
+    ncells <- 101
+  } else{
+    ncells <- ncol(object)
+  }
+
+  ordered_counts <- tidyr::gather(ordered_counts[,1:ncells], gene, count, -gene_id)
+  ordered_normcounts <- tidyr::gather(ordered_normcounts[,1:ncells], gene, count, -gene_id)
   
   ylim <- max(ordered_counts$count, ordered_normcounts$count)
   
-  counts_boxplot <- ggplot2::ggplot(ordered_counts, ggplot2::aes(x=gene, y=count)) + ggplot2::geom_boxplot() + ggplot2::scale_y_continuous(limits = c(0, ylim*1.1))
-  normcounts_boxplot <- ggplot2::ggplot(ordered_normcounts, ggplot2::aes(x=gene, y=count)) + ggplot2::geom_boxplot() + ggplot2::scale_y_continuous(limits = c(0, ylim*1.1))
+  counts_boxplot <- ggplot2::ggplot(ordered_counts, ggplot2::aes(x=gene, y=count)) + 
+    ggplot2::geom_boxplot() + ggplot2::scale_y_continuous(limits = c(0, ylim*1.1))
+  normcounts_boxplot <- ggplot2::ggplot(ordered_normcounts, ggplot2::aes(x=gene, y=count)) + 
+    ggplot2::geom_boxplot() + ggplot2::scale_y_continuous(limits = c(0, ylim*1.1))
   
-  counts_boxplot <- counts_boxplot + ggplot2::labs(x='Gene', y='Counts') + ggplot2::ggtitle('Gene expression (Sampled from 100 cells)', subtitle = "Before normalisation")
-  normcounts_boxplot <- normcounts_boxplot + ggplot2::labs( x='Gene', y='Counts') + ggplot2::ggtitle('Gene expression (Sampled from 100 cells)', subtitle = sprintf("After normalisation via %s", progressLog(object)$NormalisationMethod))
+  counts_boxplot <- counts_boxplot + ggplot2::labs(x='Gene', y='Counts') + 
+    ggplot2::ggtitle('Gene expression (Sampled from 100 cells)', subtitle = "Before normalisation")
+  normcounts_boxplot <- normcounts_boxplot + ggplot2::labs( x='Gene', y='Counts') + 
+    ggplot2::ggtitle(sprintf('Gene expression (Sampled from %i cells)', ncells), 
+                     subtitle = sprintf("After normalisation via %s", progressLog(object)$NormalisationMethod))
   
   counts_boxplot <- counts_boxplot + ggplot2::theme(axis.text.x = ggplot2::element_blank())
   normcounts_boxplot <- normcounts_boxplot + ggplot2::theme(axis.text.x = ggplot2::element_blank())

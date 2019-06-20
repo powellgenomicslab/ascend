@@ -1,4 +1,4 @@
-.Rproj
+ascend.Rproj
 .Rproj.user
 .Rhistory
 .RData
@@ -6,3 +6,10 @@
 src/*.o
 src/*.so
 src/*.dll
+.renviron
+.rprofile
+.rproj.user
+.rhistory
+.rapp.history
+.DS_Store
+.RHistory

@@ -44,6 +44,6 @@ additional arguments related to the \code{\link[Rtsne]{Rtsne}} function.
 em_set <- ascend::analyzed_set
 
 # Run tSNE
-em_set <- runTSNE(em_set, PCA = TRUE, dims = 2, seed = 1)
+em_set <- runTSNE(em_set, PCA = TRUE, dims = 2, seed = 1, perplexity = 10)
 
 }
