@@ -6,10 +6,10 @@
 \alias{runUMAP,EMSet-method}
 \title{runUMAP}
 \usage{
-runUMAP(object, ..., method, config)
+runUMAP(object, ..., method, PCA, config)
 
 \S4method{runUMAP}{EMSet}(object, ..., method = c("naive", "umap-learn"),
-  config = NULL)
+  PCA = TRUE, config = NULL)
 }
 \arguments{
 \item{object}{An EMSet}
@@ -18,6 +18,8 @@ runUMAP(object, ..., method, config)
 
 \item{method}{Method to use with the UMAP function - naive (default) or 
 umap-learn (Python package required)}
+
+\item{PCA}{Use PCA matrix as input for UMAP (Default: TRUE)}
 
 \item{config}{Configuration to use with UMAP function (Optional)}
 }
@@ -32,6 +34,6 @@ Wrapper for the \code{\link[umap]{umap}} function.
 em_set <- ascend::analyzed_set
 
 # Run UMAP
-em_set <- runUMAP(em_set, method = "naive")
+em_set <- runUMAP(em_set, method = "naive", PCA = FALSE)
 
 }

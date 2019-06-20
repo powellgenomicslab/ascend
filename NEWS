@@ -1,5 +1,6 @@
-version 0.99.5 (2019-06-20)
+version 0.99.64 (2019-06-20)
 - Reduced example datasize 
+- UMAP now uses PCA
 
 version 0.99.4 (2019-06-19)
 - Moved repository to powellgenomicslab

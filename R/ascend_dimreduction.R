@@ -12,7 +12,8 @@
 #' @param object An EMSet
 #' @param method Method to use with the UMAP function - naive (default) or 
 #' umap-learn (Python package required)
-#' @param config Configuration to use with UMAP function (Optional) 
+#' @param PCA Use PCA matrix as input for UMAP (Default: TRUE)
+#' @param config Configuration to use with UMAP function (Optional)
 #' @param ... Additional arguments to pass to the UMAP function
 #' @return UMAP matrix stored in "UMAP" slot in reducedDims
 #' 
@@ -21,12 +22,12 @@
 #' em_set <- ascend::analyzed_set
 #' 
 #' # Run UMAP
-#' em_set <- runUMAP(em_set, method = "naive")
+#' em_set <- runUMAP(em_set, method = "naive", PCA = FALSE)
 #' 
 #' @importFrom umap umap
 #' @importFrom SummarizedExperiment assayNames
 #' @export
-setGeneric("runUMAP", def = function(object, ..., method, config){
+setGeneric("runUMAP", def = function(object, ..., method, PCA, config){
   standardGeneric("runUMAP")
 })
 
@@ -35,13 +36,25 @@ setGeneric("runUMAP", def = function(object, ..., method, config){
 setMethod("runUMAP", signature = "EMSet", function(object,
                                                    ...,
                                                    method = c("naive", "umap-learn"),
+                                                   PCA = TRUE,
                                                    config = NULL){
   loadNamespace("umap")
-    # Check if normcounts are in arrayNames
-  if (!("normcounts" %in% SummarizedExperiment::assayNames(object))){
-    stop("Please normalise your data before proceeding.")
-  }
   
+  # Check if PCA has been run if it's set
+  if (PCA){
+    if ("PCA" %in% reducedDimNames(object)){
+      input_data <- as.matrix(reducedDim(object, "PCA"))
+    } else{
+      stop("PCA matrix not found. Please use runPCA first.")
+    }
+  } else{
+    # Check if normcounts are in arrayNames
+    if (!("normcounts" %in% SummarizedExperiment::assayNames(object))){
+      stop("Please normalise your data before proceeding.")
+    }
+    input_data <- as.matrix(Matrix::t(normcounts(object)))
+  }
+
   if (missing(method)){
     method <- "naive"
   }
@@ -51,7 +64,7 @@ setMethod("runUMAP", signature = "EMSet", function(object,
   }
   
   # Run UMAP
-  umap_obj <- umap::umap(as.matrix(Matrix::t(normcounts(object))), method = method, config = config, ...)
+  umap_obj <- umap::umap(input_data, method = method, config = config, ...)
   
   # Get generated values from UMAP object
   umap_matrix <- umap_obj$layout
