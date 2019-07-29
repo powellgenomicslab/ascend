@@ -348,7 +348,7 @@ retrieveCluster <- function(x, hclust_obj = NULL, distance_matrix = NULL){
 #' 
 #' # Run CORE with default parameters
 #' em_set <- runCORE(em_set, conservative = TRUE,
-#' dims = 20, nres = 40, remove.outliers = TRUE)
+#' dims = 5, nres = 30, remove.outliers = FALSE)
 #' 
 #' @return An \code{\linkS4class{EMSet}} with cluster information loaded into 
 #' the clusterAnalysis and colInfo slots
@@ -378,19 +378,19 @@ setMethod("runCORE", signature("EMSet"), function(object,
   
   # These defaults aren't getting passed on...
   if (missing(conservative)){
-    conservative = TRUE
+    conservative <- TRUE
   }
   
   if (missing(dims)){
-    dims = 20
+    dims <- 20
   }
   
   if (missing(nres)){
-    nres = 40
+    nres <- 40
   }
   
   if (missing(remove.outliers)){
-    remove.outliers = FALSE
+    remove.outliers <- FALSE
   }
   
   if (!("PCA" %in% SingleCellExperiment::reducedDimNames(object))){
@@ -399,8 +399,10 @@ setMethod("runCORE", signature("EMSet"), function(object,
   
   pca_matrix <- SingleCellExperiment::reducedDim(object, "PCA")
   
-  if (ncol(pca_matrix) >= dims){
-    pca_matrix <- pca_matrix[ , 1:dims]
+  if (ncol(pca_matrix) < dims){
+    dims <- ncol(pca_matrix)
+  } else{
+    pca_matrix <- pca_matrix[, 1:dims]
   }
   
   if (nres != 40){
@@ -445,8 +447,11 @@ setMethod("runCORE", signature("EMSet"), function(object,
         object <- runPCA(object, scaling = TRUE, ngenes = 1500)
         
         pca_matrix <- SingleCellExperiment::reducedDim(object, "PCA")
-        if (ncol(pca_matrix) > dims){
-          pca_matrix <- pca_matrix[ , 1:dims]
+        
+        if (ncol(pca_matrix) < dims){
+          dims <- ncol(pca_matrix)
+        } else{
+          pca_matrix <- pca_matrix[, 1:dims]
         }
         
         clustering_result <- generateClusters(pca_matrix = pca_matrix)

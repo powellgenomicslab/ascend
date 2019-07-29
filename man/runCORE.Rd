@@ -55,6 +55,6 @@ em_set <- ascend::analyzed_set
 
 # Run CORE with default parameters
 em_set <- runCORE(em_set, conservative = TRUE,
-dims = 20, nres = 40, remove.outliers = TRUE)
+dims = 5, nres = 30, remove.outliers = FALSE)
 
 }

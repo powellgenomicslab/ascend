@@ -602,7 +602,7 @@ plotStabilityDendro <- function(object){
   cluster_analysis <- clusterAnalysis(object)
   dendro <- cluster_analysis$hClust
   colours <- cluster_analysis$clusteringMatrix
-  colnames(colours) <- c(1:40, "REF")
+  colnames(colours) <- c(1:(ncol(colours) - 1), "REF")
   # Plotting function
   print(PlotClusterDendro(dendro, colours))
 }

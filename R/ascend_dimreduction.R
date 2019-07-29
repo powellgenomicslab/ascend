@@ -227,26 +227,33 @@ setMethod("runPCA", signature("EMSet"), function(object,
     ngenes <- nrow(object)
   }
   
-  # Check if normalised
-  if (is.null(progressLog(object)$NormalisationMethod)){
+  if (!("normcounts" %in% SummarizedExperiment::assayNames(object))){
     stop("Please normalise your dataset before using this function.")
   }
   
+  # Identify variable genes
   print("Identifying variable genes...")
-  matrix <- normcounts(object)
-  gene_variance <- calcVariance(matrix, axis = "row")
+  counts <- normcounts(object)
+  gene_variance <- calcVariance(counts, axis = "row")
   sorted_gene_variance <- gene_variance[order(unlist(gene_variance), decreasing = TRUE)]
   top_genes <- sorted_gene_variance[1:ngenes]
   
-  # Subset matrix
-  matrix <- matrix[names(top_genes), ]
-  print("Computing 50 PCs with irlba...")
+  # Subset counts to most variable genes
+  counts <- counts[names(top_genes), ]
+  
+  dims <- 50
+  if (dims > min(dim(counts))){
+    dims <- round(min(dim(counts))/2)
+  }
+  print(sprintf("Computing %i PCs with irlba...", dims))
+  
   loadNamespace("irlba")
-  matrix_irlba <- irlba::prcomp_irlba(Matrix::t(matrix), 
-                                      n = 50, 
+  matrix_irlba <- irlba::prcomp_irlba(Matrix::t(counts), 
+                                      n = dims, 
                                       retx = TRUE, 
                                       scale. = scaling,
-                                      ...)
+  )
+  remove(counts)
   pca_percent_var <- (matrix_irlba$sdev^2/sum(matrix_irlba$sdev^2))
   print("PCA complete! Loading PCA into EMSet...")
   matrix <- as.matrix(matrix_irlba$x)
