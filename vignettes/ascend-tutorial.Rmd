@@ -130,10 +130,15 @@ print(colInfo(EMSet))
 
 Cells can also be labelled based on the expression of specific genes. For 
 example, we can use the `addGeneLabel` function to label cells that express
-POU4F1, POU4F2 and POU4F3.
+POU4F1, POU4F2 and POU4F3. Please note that this dataset has had the number
+of genes reduced to 10,000 of the most variable genes.
 
 ```{r labelCells}
+# Specify genes you want to add
 gene_markers <- c("POU4F1", "POU4F2", "POU4F3")
+
+# Select the genes that are in the dataset
+gene_markers <- gene_markers[which(gene_markers %in% rownames(EMSet))]
 EMSet <- addGeneLabel(EMSet, gene = gene_markers)
 colInfo(EMSet)
 ```
@@ -191,8 +196,8 @@ print(controls(EMSet))
 Sometimes, you will need to remove the controls from the scRNA-seq data. This
 can be done with the `excludeControl` function.
 
-```{r remove_controls, eval = FALSE}
-EMSet <- excludeControl(EMSet, control = c("Mt", "Rb"))
+```{r remove_controls}
+NoControl_EMSet <- excludeControl(EMSet, control = c("Mt", "Rb"))
 ```
 
 ## 3. The Expression and Metadata Set (EMSet)
