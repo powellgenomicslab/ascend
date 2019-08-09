@@ -13,3 +13,5 @@ src/*.dll
 .rapp.history
 .DS_Store
 .RHistory
+doc
+Meta
