@@ -183,11 +183,11 @@ and the genes must be present in the expression matrix.
 
 ```{r set_controls}
 # Example controls - generate them from row names
-controls <- list(Mt = grep("^Mt-", rownames(EMSet), ignore.case = TRUE, value = TRUE),
+control_list <- list(Mt = grep("^Mt-", rownames(EMSet), ignore.case = TRUE, value = TRUE),
                  Rb = grep("^Rps|^Rpl", rownames(EMSet), ignore.case = TRUE, value = TRUE))
 
 # Set controls in the EMSet                 
-controls(EMSet) <- controls
+controls(EMSet) <- control_list
 
 # Retrieve controls
 print(controls(EMSet))
