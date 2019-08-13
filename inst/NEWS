@@ -1,3 +1,6 @@
+version 0.99.67 (2019-08-13)
+- Updated documentation for datasets
+
 version 0.99.66 (2019-08-09)
 - Reduced number of genes in example datasets
 - Edited gene marker selection in vignette

@@ -3,7 +3,7 @@
 \docType{data}
 \name{raw_set}
 \alias{raw_set}
-\title{Retinal Ganglion Cells (100 THY-1 positive, 100 THY-1 negative)}
+\title{Retinal Ganglion Cells (33 THY-1 positive, 33 THY-1 negative)}
 \format{A list consisting of three objects:
 \describe{
   \item{counts}{Count matrix stored in sparseMatrix format}
