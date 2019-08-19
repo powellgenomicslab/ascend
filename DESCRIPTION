@@ -1,7 +1,7 @@
 Package: ascend
 Type: Package
 Title: ascend - Analysis of Single Cell Expression, Normalisation, and Differential expression
-Version: 0.99.68
+Version: 0.99.69
 Author: c(person("Anne", "Senabouth", email = "a.senabouth@garvan.org.au", rol = "aut, cre"), person("Quan", "Nguygen", email = "quan.nguyen@imb.uq.edu.au", rol = "aut"))
 Maintainer: Anne Senabouth <a.senabouth@garvan.org.au>
 Description: Provides a series of tools for cleaning, normalisation and analysis of data produced by single cell experiments.
@@ -45,7 +45,8 @@ Suggests:
     testthat,
     KernSmooth,
     DESeq,
-    DESeq2
+    DESeq2,
+    sctransform
 VignetteBuilder: knitr
 Depends: R (>= 3.6.0),
     methods,
@@ -73,6 +74,7 @@ Collate:
     'ascend_normalisation.R'
     'ascend_plots.R'
     'ascend_scran.R'
+    'ascend_sctransform.R'
     'ascend_subsetters.R'
     'ascend_utilities.R'
     'data.R'

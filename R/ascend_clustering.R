@@ -281,7 +281,7 @@ calcRandIndex <- function (x, adjust = TRUE)
   }
 }
 
-calcRandIndexMatrix <- function(cluster_matrix, original_clusters, cluster_list){
+calcRandIndexMatrix <- function(cluster_matrix, original_clusters){
   # Values to output to
   cluster_index_consec <-list()
   cluster_index_ref <-list()

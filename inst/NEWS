@@ -1,3 +1,6 @@
+version 0.99.69 (2019-08-13)
+- Added sctransform function to package
+
 version 0.99.68 (2019-08-13)
 - Fixed bug in ascend vignette
 

@@ -128,6 +128,12 @@ convertEMSetToSeurat <- function(x){
   
   # Convert to Seurat
   object <- Seurat::as.Seurat(x)
+  
+  # Add measurements
+  object[["nCount_RNA"]] <- x@colData$qc_libsize
+  object[["nFeature_RNA"]] <- x@colData$qc_ngenes
+  object[["batch"]] <- x@colInfo$batch
+  
   return(object)
 }
 
