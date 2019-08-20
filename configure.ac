@@ -4,7 +4,8 @@
 ##  the RcppArmadillo package. Licensed under GPL-2 or later
 ##  This file is a subset of the configure.ac used by
 ##  RcppArmadillo, adapted to the mfbvar package by
-##  Sebastian Ankargren
+##  Sebastian Ankargren. Copied from S. Ankargren for the ascend R package by
+##  Anne Senabouth.
 
 ## require at least autoconf 2.61
 AC_PREREQ(2.61)
