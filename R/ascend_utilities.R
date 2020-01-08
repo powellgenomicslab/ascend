@@ -5,6 +5,44 @@
 #
 ################################################################################
 
+#' prepareAnalysedSet
+#' 
+#' Convenience function to automatically analyse the raw EMSet that comes 
+#' packaged with `ascend`. This is to be used with examples.
+#' 
+#' @examples 
+#' 
+#' em_set <- prepareAnalysedSet()
+#' 
+#' @export
+#' 
+prepareAnalysedSet <- function(){
+  # Load raw set
+  em_set <- ascend::raw_set
+  
+  # Filter
+  em_set <- filterByOutliers(em_set, cell.threshold = 3, gene.threshold = 3, control.threshold = 3)
+  em_set <- filterLowAbundanceGenes(em_set, pct.threshold = 0.01)
+  
+  # Normalise
+  em_set <- normaliseByRLE(em_set)
+  em_set <- excludeControl(em_set, control = c("Mt", "Rb"))
+  
+  # PCA
+  em_set <- runPCA(em_set, scaling = TRUE, ngenes = 1500)
+  
+  em_set <- runTSNE(em_set, PCA = TRUE, dims = 2, seed = 1, perplexity = 15)
+  # Cluster
+  em_set <- runCORE(em_set, conservative = FALSE, nres = 30, dims = 10, remove.outliers = FALSE)
+  
+  # t-SNE
+  em_set <- runTSNE(em_set, PCA = TRUE, dims = 2, seed = 1, perplexity = 15)
+  
+  # UMAP
+  em_set <- runUMAP(em_set, PCA = TRUE, method = "naive")
+  return(em_set)
+}
+
 convertToScone <- function(x){
   loadNamespace("scone")
   # Coercian to experiment loses rowData for some reason

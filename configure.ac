@@ -4,7 +4,8 @@
 ##  the RcppArmadillo package. Licensed under GPL-2 or later
 ##  This file is a subset of the configure.ac used by
 ##  RcppArmadillo, adapted to the mfbvar package by
-##  Sebastian Ankargren. Copied from S. Ankargren for the ascend R package by
+##  Sebastian Ankargren. 
+##  Copied from S. Ankargren for the ascend R package by
 ##  Anne Senabouth.
 
 ## require at least autoconf 2.61
@@ -18,6 +19,7 @@ AC_INIT([ascend], 0.99.69)
 if test -z "${R_HOME}"; then
 	AC_MSG_ERROR([Could not determine R_HOME.])
 fi
+
 ## Use R to set CXX and CXXFLAGS
 CXX=$(${R_HOME}/bin/R CMD config CXX)
 CXXFLAGS=$("${R_HOME}/bin/R" CMD config CXXFLAGS)
