@@ -45,7 +45,7 @@ of `ascend`. Feel free to skip these steps if you already have these packages.
 
 ##### 3.2.1 Packages from CRAN
 You can use the install.packages() to install the packages described in this
-section. The pcakages you require from this repository are as follows:
+section. The packages you require from this repository are as follows:
 
 1. [devtools](https://cran.r-project.org/web/packages/devtools/index.html): This
 package will be used to load the development version of `ascend`.
@@ -66,7 +66,7 @@ install.packages(cran_packages)
 ```
 
 ##### 3.2.2 Packages from Bioconductor
-Bioconductor is a repository for R packages  related to the analysis and
+Bioconductor is a repository for R packages related to the analysis and
 comprehension of high-throughput genomic data. It uses a separate set of
 commands for the installation of packages.
 
